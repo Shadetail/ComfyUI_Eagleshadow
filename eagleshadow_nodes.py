@@ -488,6 +488,29 @@ class OffsetImage:
 
 #---------------------------------------------------------------------------------------------------------------------#
 
+class DetectTransparency:
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "mask": ("MASK",),
+            }
+        }
+
+    RETURN_TYPES = ("INT",)
+    FUNCTION = "detect_transparency"
+
+    CATEGORY = "Image/Analysis"
+
+    def detect_transparency(self, mask):
+        # Considering any non-zero value as indicating transparency
+        has_transparency = int(torch.any(mask > 0))
+        
+        # Output 2 if fully opaque, 1 if there's any transparency
+        output = 1 if has_transparency else 2
+        return (output,)
+
+#---------------------------------------------------------------------------------------------------------------------#
 
 
 NODE_CLASS_MAPPINGS = {
@@ -501,6 +524,7 @@ NODE_CLASS_MAPPINGS = {
     "ImageLinearGammaCompositeMasked": ImageLinearGammaCompositeMasked,
     "MaskGlow": MaskGlow,
     "OffsetImage": OffsetImage,
+    "Detect Transparency": DetectTransparency,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -514,4 +538,5 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "ImageLinearGammaCompositeMasked": "Image Linear Gamma Composite Masked",
     "MaskGlow": "Apply Glow to Mask",
     "OffsetImage": "Offset Image",
+    "DetectTransparency": "Detect Transparency"
 }
