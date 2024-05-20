@@ -15,6 +15,65 @@ import latent_preview
 from nodes import MAX_RESOLUTION
 
 #---------------------------------------------------------------------------------------------------------------------#
+class SelectModel20:
+    
+    @classmethod
+    def INPUT_TYPES(cls):
+        checkpoint_files = ["None"] + folder_paths.get_filename_list("checkpoints")
+        
+        return {"required": {"ckpt_name1": (checkpoint_files,),
+                             "ckpt_name2": (checkpoint_files,),
+                             "ckpt_name3": (checkpoint_files,),
+                             "ckpt_name4": (checkpoint_files,),
+                             "ckpt_name5": (checkpoint_files,),
+                             "ckpt_name6": (checkpoint_files,),
+                             "ckpt_name7": (checkpoint_files,),
+                             "ckpt_name8": (checkpoint_files,),
+                             "ckpt_name9": (checkpoint_files,),
+                             "ckpt_name10": (checkpoint_files,),
+                             "ckpt_name11": (checkpoint_files,),
+                             "ckpt_name12": (checkpoint_files,),
+                             "ckpt_name13": (checkpoint_files,),
+                             "ckpt_name14": (checkpoint_files,),
+                             "ckpt_name15": (checkpoint_files,),
+                             "ckpt_name16": (checkpoint_files,),
+                             "ckpt_name17": (checkpoint_files,),
+                             "ckpt_name18": (checkpoint_files,),
+                             "ckpt_name19": (checkpoint_files,),
+                             "ckpt_name20": (checkpoint_files,),
+                             "select_model": ("INT", {"default": 1, "min": 1, "max": 20}),
+                            }    
+               }
+
+    RETURN_TYPES = ("MODEL", "CLIP", "VAE", "STRING", )
+    RETURN_NAMES = ("MODEL", "CLIP", "VAE", "ckpt_name", )
+    FUNCTION = "select_model"
+
+    def select_model(self, ckpt_name1, ckpt_name2, ckpt_name3, ckpt_name4, ckpt_name5,
+                     ckpt_name6, ckpt_name7, ckpt_name8, ckpt_name9, ckpt_name10,
+                     ckpt_name11, ckpt_name12, ckpt_name13, ckpt_name14, ckpt_name15,
+                     ckpt_name16, ckpt_name17, ckpt_name18, ckpt_name19, ckpt_name20,
+                     select_model):
+    
+        model_list = [ckpt_name1, ckpt_name2, ckpt_name3, ckpt_name4, ckpt_name5,
+                      ckpt_name6, ckpt_name7, ckpt_name8, ckpt_name9, ckpt_name10,
+                      ckpt_name11, ckpt_name12, ckpt_name13, ckpt_name14, ckpt_name15,
+                      ckpt_name16, ckpt_name17, ckpt_name18, ckpt_name19, ckpt_name20]
+        
+        model_name = model_list[select_model - 1]
+        
+        if model_name == "None":
+            print(f"CR Select Model: No model selected")
+            return()
+
+        ckpt_path = folder_paths.get_full_path("checkpoints", model_name)
+        model, clip, vae, clipvision = comfy.sd.load_checkpoint_guess_config(
+            ckpt_path, output_vae=True, output_clip=True,
+            embedding_directory=folder_paths.get_folder_paths("embeddings"))
+        
+        return (model, clip, vae, model_name)
+
+#---------------------------------------------------------------------------------------------------------------------#
 
 class RoundFloat2String:
     @classmethod
@@ -514,6 +573,7 @@ class DetectTransparency:
 
 
 NODE_CLASS_MAPPINGS = {
+    "Select Model 20": SelectModel20,
     "Round Float to String": RoundFloat2String,
     "SaveImageToFolder": SaveImageToFolder,
     "Fix Checkpoint Name": FixCheckpointName,
@@ -528,6 +588,7 @@ NODE_CLASS_MAPPINGS = {
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
+    "SelectModel20": "Select Model 20",
     "RoundFloat2String": "Round Float to String",
     "SaveImageToFolder": "Save Image to Folder",
     "FixCheckpointName": "Fix Checkpoint Name",
