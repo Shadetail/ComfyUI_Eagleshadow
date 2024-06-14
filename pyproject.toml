@@ -1,0 +1,14 @@
+[project]
+name = "comfyui_eagleshadow"
+description = "Custom nodes for ComfyUI by Eagleshadow."
+version = "1.0.0"
+license = "LICENSE"
+
+[project.urls]
+Repository = "https://github.com/Shadetail/ComfyUI_Eagleshadow"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = ""
+DisplayName = "ComfyUI_Eagleshadow"
+Icon = ""
