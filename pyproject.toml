@@ -1,6 +1,6 @@
 [project]
 name = "comfyui_eagleshadow"
-description = ""
+description = "Custom nodes for ComfyUI by Eagleshadow."
 version = "1.0.0"
 license = "LICENSE"
 
