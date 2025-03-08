@@ -2,7 +2,7 @@
 name = "comfyui_eagleshadow"
 description = "Custom nodes for ComfyUI by Eagleshadow."
 version = "1.0.0"
-license = "LICENSE"
+license = { file = "LICENSE" }
 
 [project.urls]
 Repository = "https://github.com/Shadetail/ComfyUI_Eagleshadow"
