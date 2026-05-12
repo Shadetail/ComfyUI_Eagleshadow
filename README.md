@@ -38,3 +38,6 @@ Offsets an image by the specified horizontal and vertical amounts, works the sam
 
 ## Detect Transparency
 Analyzes a mask image to determine if there is any transparency. It considers any non-zero value in the mask as indicating transparency. If transparency is detected, the node outputs 1; otherwise, it outputs 2.
+
+## Load Diffusion Model With Name
+A fork of the core "Load Diffusion Model" (UNETLoader) node that adds a second output: the model file name as a string, with any subfolder path and the file extension stripped off. I pipe it into a text concat to build the output filename for the saved image, which makes the outputs much more organized and easier to search.
